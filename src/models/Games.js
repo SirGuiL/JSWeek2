@@ -8,7 +8,7 @@ const GameSchema = new Schema({
     otherTitles: [String],
     developers: [String],
     publishers: [String],
-    genders: [String],
+    genres: [String],
     firstReleased: Date,
     japanRelease: Date,
     usaRelease: Date,
@@ -44,4 +44,14 @@ module.exports = {
 
         return query.exec();
     },
+    store: (data) => {
+        const game = new Game(data);
+        return game.save();
+    },
+    update: (id, data, options = { new: true }) => {
+        return Game.findOneAndUpdate({ _id: id }, data);
+    },
+    destroy: (id) => {
+        return Game.deleteOne({ _id: id });
+    }
 }
